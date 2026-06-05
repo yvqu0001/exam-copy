@@ -1,0 +1,102 @@
+---
+//@ts-nocheck
+import '../styles/effects.css';
+import '../styles/global.css';
+import '../styles/reset.css';
+import '../styles/typography.css';
+import '../styles/variables.css';
+import CardKarrusel from '../components/CardKarrusel.astro';
+import Pagination from '../components/Pagination.astro';
+import Blobs from '../components/Blobs.astro';
+
+const mineManuelleKort = [
+  {
+    href: "/om_os",
+    badgeText: "Smart",
+    mediaUrl: "/images/kalkgrav.webp",
+    overlayText: "Med Øremærket bliver dine betalinger til mere end bare et køb. Hver gang du bruger Dankort, er du med til at donere til dansk natur – helt automatisk."
+  },
+  {
+    href: "/om_os",
+    badgeText: "Hurtigt",
+    mediaUrl: "/images/betaling.webp",
+    overlayText: "Dankort gør det nemt at betale hurtigt og fleksibelt i hverdagen. Du kan fokusere på øjeblikket uden altid at skulle tænke over saldoen først."
+  },
+  {
+    href: "/om_os",
+    badgeText: "Sikkert",
+    mediaUrl: "/images/nyhavn.webp",
+    overlayText: "Dankort is bygget på en dansk betalingsinfrastruktur med fokus på stabilitet og tryghed. Det giver een sikker løsning, du kan stole på i hverdagen."
+  }
+]
+---
+
+<section>
+  <h2>Vores værdier</h2>
+  <CardKarrusel items={mineManuelleKort} />
+
+    <div class="pagination">
+        <Pagination current="0" />
+    </div>
+</section>
+<div class="blue-blob1">
+			<Blobs 
+			color="blue"
+			size="large"/>
+		</div>
+		<div class="red-blob1">
+			<Blobs 
+			color="red"
+			size="large"/>
+		</div>
+
+<style>
+  section {
+    padding-top: 100px;
+    text-align: center;
+    z-index: 100;
+  }
+  
+  h2 {
+    margin-bottom: var(--gap-m);
+  }
+
+  .pagination {
+      margin-top: var(--gap-s);
+      display:flex;
+      justify-content:center;
+    }
+
+    .blue-blob1 {
+		position: absolute;
+		top: 700px;
+		left: 200px;
+	}
+
+	.red-blob1 {
+		position: absolute;
+		top: 700px;
+		left: 600px;
+  }
+
+  @media (max-width: 768px) {
+    section {
+      padding: var(--gap-xl) 0;
+    }
+    h2 {
+      margin-bottom: var(--gap-s);
+    } 
+    .pagination {
+      margin-top: var(--gap-xxs);
+    }
+    .blue-blob1 {
+			top: 400px;
+			left: -300px;
+		}
+
+		.red-blob1 {
+			top: 400px;
+			left: 300px;
+		}
+  }
+</style>

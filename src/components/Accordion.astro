@@ -1,0 +1,45 @@
+---
+//@ts-nocheck
+const { title, content } = Astro.props;
+---
+
+<details class="accordion">
+    <summary>
+        <h6>{title}</h6>
+        <span class="accordion-icon"></span>
+    </summary>
+    <div class="accordion-content">
+        <p>{content}</p>
+    </div>
+</details>
+
+<style>
+    .accordion { 
+        border-top: 1px solid var(--neutral-800);
+        padding: 1rem 1rem;
+    }
+
+    summary { 
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .accordion-icon::before {
+        content: "+";
+    }
+
+    details[open] .accordion-icon::before {
+        content: "-";
+    }
+
+    .accordion-content {
+        margin-top: 1rem;
+    }
+
+    html.dark .accordion {
+        border-top: 1px solid var(--neutral-300);
+    }
+</style>

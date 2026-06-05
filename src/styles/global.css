@@ -1,0 +1,39 @@
+:root {
+  color-scheme: light dark;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+body {
+  background-color: var(--white);
+  overflow-x: hidden;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+html.dark body {
+  background-color: var(--black);
+}
+
+main {
+  min-height: 100vh;
+  width: min(1200px, calc(100% - 2rem));
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  main {
+    width: 100%;
+    margin: 1rem 0;
+  }
+}

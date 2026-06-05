@@ -1,0 +1,95 @@
+---
+//@ts-nocheck
+import Kortfortalt from '../components/Kortfortalt.astro';
+import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Footer from '../components/Footer.astro'
+import Countdown from '../components/Countdown.astro';
+import OeremaerketSection from '../components/OeremaerketSection.astro';
+import Values from '../components/Values.astro';
+import SocialsKarrusel from '../components/SocialsKarrusel.astro';
+import MerchCountdown from '../components/MerchCountdown.astro';
+import SamarbejdspartnerLandingpage from '../components/SamarbejdspartnereLandingpage.astro';
+import Blobs from '../components/Blobs.astro'
+import MobilKort from '../assets/mobil-rkort.svg';
+import PCKort from '../assets/roedtkort-desktop.svg';
+---
+
+<Layout>
+    <Hero/>
+	<div class="bg">
+		<main>
+			<!-- Tilføj overflow: hidden her for en sikkerheds skyld -->
+			<article class="main_section" style="width: 100%;">
+				<Kortfortalt />
+				<Values />
+				<OeremaerketSection />
+				<SamarbejdspartnerLandingpage />
+				<MerchCountdown />
+				<SocialsKarrusel />
+			</article>
+		</main>
+	
+		<img id="kortFortalt-dk" src={MobilKort.src} alt="Rødt Dankort" aria-hidden="true">
+   		<img id="desk-dk" src={PCKort.src} alt="Rødt Dankort" aria-hidden="true">
+	</div>
+</Layout>
+
+<style>
+	main {
+    	margin-bottom: var(--gap-xl);
+  	}
+
+	.main_section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--gap-xl);
+		padding: 0 1rem;
+	}
+
+	.bg {
+		position: relative;
+		overflow: hidden;
+	}
+	
+	#kortFortalt-dk {
+		position: absolute;
+		top: 100px;
+		left: 280px;
+		transform: rotate(43deg);
+		z-index: 1;
+	}
+
+	#desk-dk {
+		display: none;
+	}
+
+	@media (min-width: 768px) {
+		main {
+    		margin-bottom: var(--gap-xxl);
+  		}
+
+		.main_section {
+			display: flex;
+			flex-direction: column;
+			gap: var(--gap-xxl);
+			padding: 0;
+			z-index: 100;
+		}
+
+		#kortFortalt-dk {
+			display: none;
+		}
+
+		#desk-dk {
+			position: absolute;
+			display: inline-block;
+			top: 170px;
+			right: 10vw;
+			transform: rotate(-36.14deg);
+			width: 35vw;
+			z-index: 1;
+		}
+	}
+</style>

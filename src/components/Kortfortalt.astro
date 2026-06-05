@@ -1,0 +1,127 @@
+---
+//@ts-nocheck
+import Buttons from '../components/Buttons.astro'
+import Blobs from '../components/Blobs.astro'
+---
+<section id="kortFortalt">
+    <div id="kortFortalt-text">
+    <!-- <img id="kortFortalt-dk" src="/src/assets/mobil-rkort.svg" alt="Rødt Dankort">
+   <img id="desk-dk" src="/src/assets/roedtkort-desktop.svg" alt="Rødt Dankort"> -->
+        <div class="titel">
+            <h2>Dankort Øremærket</h2>
+            <h3>Kort fortalt -</h3>
+        </div>
+        <p>Dankort Øremærket er et initiativ, hvor vi donerer 1 øre til Den Danske Naturfond, for hver gang du betaler med dit Dankort. <br>
+        Doner den danske natur - helt uden at det koster ekstra for dig.</p>
+        <div id="buttons-kortfortalt">
+            <Buttons
+                text="Læs om Øremærket"
+                variant="red500"
+                link="/om_os"/>
+            <a class="mobile-cta" href="https://dankort.dk" target="_blank" rel="noopener noreferrer">
+                <Buttons text="Bestil et Dankort" variant="secondary"/>
+            </a>
+        </div>
+    </div>
+</section>
+<div class="green-blob1">
+    <Blobs 
+    color="green"
+    size="extra_large"/>
+</div>
+<div class="yellow-blob">
+    <Blobs 
+    color="yellow"
+    size="large"/>
+</div>
+
+<style>
+    #buttons-kortfortalt{
+        display: flex;
+        flex-direction: row;
+        gap: var(--gap-xs);
+        justify-content: space-between;
+    }
+
+    #desk-dk{
+        display: none;
+    }
+
+    #kortFortalt {
+        padding-top: var(--gap-xl);
+        z-index: 1;
+    }
+
+    #kortFortalt-text{   
+        display: flex; 
+        flex-direction: column;  
+        gap: var(--gap-xs);
+    }
+
+    #kortFortalt-text p {
+        width: 70vw;
+    }
+    
+    #kortFortalt-dk{
+        position: absolute;
+        z-index: 1;
+        top: 6rem;
+        right: -4.5rem;
+        justify-self: end;
+        transform: rotate(45deg);
+    }
+
+    .green-blob1 {
+		position: absolute;
+		top: -50px;
+		left: 300px;
+	}
+
+	.yellow-blob {
+		position: absolute;
+		top: -200px;
+		left: -200px;
+	} 
+
+
+/* DESKTOP VERSION */
+
+    @media (min-width: 768px) {
+        #buttons-kortfortalt{
+            gap: var(--gap-m);
+            width: 500px;
+        }
+
+        #kortFortalt-dk{
+            display: none;
+        }
+
+        #kortFortalt {
+            width: 540px;
+            padding-top: 200px;
+        }
+
+        #kortFortalt-text{
+            width: 540px;
+        }
+
+        #desk-dk{
+            display: block;
+            position: absolute;
+            top: 14rem;
+            right: -3rem;
+            transform: rotate(-36deg);
+            width: 520px;
+            height: 326.293px;
+        }
+
+        .green-blob1 {
+			top: 100px;
+			left: 250px;
+		}
+
+		.yellow-blob {
+			top: 0;
+			left: 800px;
+    } }
+</style>

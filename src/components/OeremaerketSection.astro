@@ -1,0 +1,165 @@
+---
+//@ts-nocheck
+import '../styles/effects.css';
+import '../styles/global.css';
+import '../styles/reset.css';
+import '../styles/typography.css';
+import '../styles/variables.css';
+import Buttons from '../components/Buttons.astro'
+import Blobs from '../components/Blobs.astro'
+---
+
+<section class="card glass">
+  <!-- Badge -->
+  <div class="card-badge">
+    <h2>Øremærket</h2>
+  </div>
+
+  <!-- Indhold -->
+  <div class="card-content">
+    <div class="svg-wrapper" />
+      <img class="img" src="/images/skagen.webp" alt="et billede fra skagen" loading="lazy" />
+      <!-- Overlay tekst nederst centreret -->
+      <div class="card-overlay-text">
+        <p>Når du bruger Dankort, er du med til at donere og styrke vores natur. Vi donerer nemlig minimum 1 øre pr. transaktion.<br> - Hør mere om hvordan det fungerer </p>
+        <Buttons
+          text="Læs mere om Øremærket"
+          variant="red500"
+          link="/om_os"/>
+      </div>
+    </div>
+  </section>
+  <div class="green-blob2">
+			<Blobs 
+			color="green"
+			size="extra_large"/>
+		</div>
+		<div class="blue-blob2">
+			<Blobs 
+			color="blue"
+			size="extra_large"/>
+		</div>
+    
+<style>
+  section {
+    z-index: 100;
+  }
+/* Variabler – light mode */
+:global(:root) {
+  --badge-bg: var(--white);
+  --badge-text: var(--black);
+}
+
+/* Variabler – dark mode */
+:global(html.dark),
+:global(body.dark) {
+  --badge-bg: var(--black);
+  --badge-text: var(--white);
+}
+
+/* Selve kortet */
+.card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/7;
+  border-radius: 0 16px 16px 16px;
+  overflow: hidden;
+  background: var(--badge-bg);
+}
+
+/* Badge */
+.card-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 16px 24px;
+  font-family: "Raleway", "Helvetica Neue", sans-serif;
+  border-bottom-right-radius: 16px;
+}
+
+/* Badge buer */
+.card-badge::after,
+.card-badge::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: transparent;
+  border-top-left-radius: 16px;
+  box-shadow: -4px -4px 0 4px var(--badge-bg);
+}
+
+.card-badge::after {
+  right: -16px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.card-badge::before {
+  left: 0;
+  bottom: -16px;
+  width: 16px;
+  height: 16px;
+}
+
+/* Billeder */
+.card-content img {
+  /* width: 100%; */
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay tekst nederst */
+.card-overlay-text {
+  position: absolute;
+  bottom: 16px;
+  z-index: 20;
+  color: var(--white);
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  width: 500px;
+  padding: 0 1rem;
+}
+
+.card-overlay-text p {
+  padding-bottom: 1rem;
+}
+
+.green-blob2 {
+		position: absolute;
+		top: 1300px;
+		left: -100px;
+	}
+
+	.blue-blob2 {
+		position: absolute;
+		top: 1300px;
+		right: -100px;
+	}
+
+@media (max-width: 767px) {
+  .card {
+    aspect-ratio: 3/4;
+  }
+  .card-content {
+    height: 100%;
+  }
+  .card-overlay-text {
+    width: 95vw;
+  }
+  .green-blob2 {
+			top: 1000px;
+			left: -300;
+		}
+
+		.blue-blob2 {
+			top: 1000px;
+			right: -300px;
+		}
+}
+</style>

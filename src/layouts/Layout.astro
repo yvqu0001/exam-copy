@@ -1,0 +1,35 @@
+---
+import '../styles/reset.css'
+import '../styles/variables.css'
+import '../styles/typography.css'
+import '../styles/effects.css'
+import '../styles/global.css'
+import Navigation from '../components/Navigation.astro'
+import Footer from '../components/Footer.astro'
+---
+<!doctype html>
+<html lang="da">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+
+		<!-- change favicon slay -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.png" />
+
+		<!-- fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Reenie+Beanie&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.typekit.net/enl1hic.css">
+		
+		<meta name="generator" content={Astro.generator} />
+		<title>Dankort Øremærket</title>
+	</head>
+	<body>
+		<Navigation/>
+		<slot />
+		<Footer/>
+	</body>
+</html>
+

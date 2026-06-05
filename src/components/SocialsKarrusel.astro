@@ -1,0 +1,94 @@
+---
+//@ts-nocheck
+import '../styles/effects.css';
+import '../styles/global.css';
+import '../styles/reset.css';
+import '../styles/typography.css';
+import '../styles/variables.css';
+import Pagination from '../components/Pagination.astro';
+import CardKarrusel from '../components/CardKarrusel.astro';
+import Blobs from '../components/Blobs.astro';
+
+const mineManuelleKort = [
+  {
+    href: "https://tiktok.com",
+    badgeText: "TikTok",
+    mediaUrl: "/images/djmedoreremaerket.webp",
+    overlayText: ""
+  },
+  {
+    href: "https://instagram.com",
+    badgeText: "Instagram",
+    mediaUrl: "/images/pigerpaastranden.webp",
+    overlayText: ""
+  },
+  {
+    href: "https://facebook.com",
+    badgeText: "Facebook",
+    mediaUrl: "/images/gravidungpige.webp",
+    overlayText: ""
+  }
+]
+---
+
+<section class="socials_grid">
+  <div class="textcar">
+    <h2>Følg os på sociale medier</h2>
+    <p>Følg med på de sociale medier og hold dig opdateret på nyheder, samarbejder, projekter og inspiration. Bliv en del af fællesskabet og se, hvordan vi sammen kan støtte gode formål, én betaling ad gangen.</p>
+    <CardKarrusel items={mineManuelleKort} />
+  </div>
+    <div class="pagination">
+      <Pagination current="0" />
+    </div>
+</section>
+<div class="yellow-blob">
+    <Blobs 
+    color="yellow"
+    size="small"/>
+</div>
+<div class="blue-blob">
+    <Blobs 
+    color="blue"
+    size="small"/>
+</div>
+
+<style>
+  section{
+    z-index: 100;
+  }
+  .textcar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+  }
+
+  .pagination {
+    margin-top: var(--gap-s);
+    display:flex;
+    justify-content:center;
+  }
+
+  .yellow-blob {
+    position: absolute;
+    bottom: 400px;
+    left: 200px;
+  }
+
+	.blue-blob {
+		position: absolute;
+		bottom: 200px;
+		right: 100px;
+	}
+
+  @media (max-width: 768px) {
+    .yellow-blob {
+      bottom: 300px;
+      left: -100px;
+    }
+
+    .blue-blob {
+      bottom: 10px;
+      right: -200px;
+    }
+  }
+</style>

@@ -1,0 +1,38 @@
+/* cant check if its correct glass effect until i see it on the website ngl */
+.glass {
+  position: relative;
+
+  background-color: rgba(var(--neutral-200-rgb), 0.2);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 0.1px solid rgba(var(--white-rgb), 0.5);
+
+  box-shadow: var(--dropshadow), var(--innershadow-dark);
+
+  border-radius: var(--radius-l);
+
+  overflow: hidden;
+}
+
+.glass::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    -45deg,
+    rgba(var(--white-rgb), 0.35),
+    rgba(var(--white-rgb), 0.05) 40%,
+    transparent 70%
+  );
+
+  pointer-events: none;
+}
+
+/* darkmode */
+html.dark .glass {
+  background-color: rgba(var(--neutral-800-rgb), 0.2);
+}

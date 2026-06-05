@@ -1,0 +1,48 @@
+---
+//@ts-nocheck
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Findditkort from '../components/Findditkort.astro';
+import DankortTilWallet from '../components/DankortTilWallet.astro';
+---
+
+<Layout>
+    <div class="bg">
+        <main >
+            <Breadcrumbs />
+            <div class="main_section">
+                <Findditkort/>
+                <DankortTilWallet />
+            </div>
+        </main>
+    </div>
+</Layout>
+
+<style>
+    main {
+        margin-bottom: var(--gap-xxl);
+    }
+
+    .bg {
+		position: relative;
+		overflow: hidden;
+	}
+
+    .main_section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--gap-xxl);
+        padding: 0;
+	}
+
+    @media (max-width:768px){
+        main {
+            margin-bottom: var(--gap-xl);
+        }
+        .main_section {
+            gap: var(--gap-xl);
+            padding: 0 1rem;
+	    }
+    }
+</style>

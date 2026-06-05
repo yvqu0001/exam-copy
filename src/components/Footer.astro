@@ -1,0 +1,372 @@
+---
+//@ts-nocheck
+import '../layouts/Layout.astro';
+import '../styles/effects.css';
+import '../styles/global.css';
+import '../styles/reset.css';
+import '../styles/typography.css';
+import '../styles/variables.css';
+
+import tiktokSort from '../assets/tiktok-sort-logo.svg';
+import tiktokHvid from '../assets/tiktok-logo.svg';
+import instagramSort from '../assets/instagram-sort-logo.svg';
+import instagramHvid from '../assets/instagram-logo.svg';
+import facebookSort from '../assets/facebook-sort-logo.svg';
+import facebookHvid from '../assets/facebook-logo.svg';
+import Logo from '../assets/logo.svg'
+---
+
+<footer class="site-footer">
+  <div class="magnetic-strip"></div>
+
+  <div class="footer-content">
+    <div class="footer-brand">
+      <div class="brand-logo-text special_text">Dankort Øremærket</div>
+    </div>
+
+    <div class="footer-nav">
+      
+      <div class="footer-section">
+        <button class="accordion-trigger" aria-expanded="false">
+          Dankort Øremærket <span class="icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <ul class="footer-links">
+            <li><a href="/">Forside</a></li>
+            <li><a href="/find">Find dit kort</a></li>
+            <li><a href="/sneak-peak">Sneak peak</a></li>
+            <li><a href="/om-os">Om os</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <button class="accordion-trigger" aria-expanded="false">
+          Kontakt Dankort <span class="icon">+</span>
+        </button>
+        <div class="accordion-content contact-info">
+          <p>Telefon åben: 08:00 - 15:00</p>
+          <p><a href="tel:+4512345678">+45 12 34 56 78</a></p>
+          <p><a href="mailto:dankort@øremærket.dk">dankort@øremærket.dk</a></p>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <button class="accordion-trigger" aria-expanded="false">
+          Dankort <span class="icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <ul class="footer-links">
+            <li><a href="/om">Om Dankort</a></li>
+            <li><a href="/privatliv">Privatlivspolitikker</a></li>
+            <li><a href="/cookies">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="social-links">
+  <a href="https://tiktok.com" aria-label="TikTok" class="social-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+      <path class="svg-dark-tiktok" d="M16.975 20.4873C16.9749 21.6616 16.6267 22.8095 15.9743 23.7859C15.3219 24.7623 14.3946 25.5233 13.3097 25.9728C12.2248 26.4223 11.031 26.5399 9.87918 26.3108C8.72739 26.0817 7.66943 25.5162 6.8391 24.6857C6.00867 23.8554 5.44314 22.7974 5.21404 21.6457C4.98495 20.4939 5.10259 19.3 5.55207 18.2151C6.00148 17.1302 6.7625 16.2029 7.7389 15.5505C8.7153 14.8981 9.86323 14.5498 11.0375 14.5498" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      <path class="svg-dark-tiktok" d="M16.975 20.4873V3.2998C16.975 6.1123 20.725 11.1123 25.1 11.1123" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+  <a href="https://instagram.com" aria-label="Instagram" class="social-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+      <path class="svg-dark" fill-rule="evenodd" clip-rule="evenodd" d="M0 5C0 2.23857 2.23857 0 5 0H20C22.7614 0 25 2.23857 25 5V20C25 22.7614 22.7614 25 20 25H5C2.23857 25 0 22.7614 0 20V5ZM5 2.5C3.61929 2.5 2.5 3.61929 2.5 5V20C2.5 21.3807 3.61929 22.5 5 22.5H20C21.3807 22.5 22.5 21.3807 22.5 20V5C22.5 3.61929 21.3807 2.5 20 2.5H5ZM12.5 8.75C10.4289 8.75 8.75 10.4289 8.75 12.5C8.75 14.5711 10.4289 16.25 12.5 16.25C14.5711 16.25 16.25 14.5711 16.25 12.5C16.25 10.4289 14.5711 8.75 12.5 8.75ZM6.25 12.5C6.25 9.04822 9.04822 6.25 12.5 6.25C15.9517 6.25 18.75 9.04822 18.75 12.5C18.75 15.9517 15.9517 18.75 12.5 18.75C9.04822 18.75 6.25 15.9517 6.25 12.5ZM19.375 7.5C20.4105 7.5 21.25 6.66054 21.25 5.625C21.25 4.58946 20.4105 3.75 19.375 3.75C18.3395 3.75 17.5 4.58946 17.5 5.625C17.5 6.66054 18.3395 7.5 19.375 7.5Z" fill="var(--black)"/>
+    </svg>
+  </a>
+  <a href="https://facebook.com" aria-label="Facebook" class="social-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+      <path class="svg-dark" fill-rule="evenodd" clip-rule="evenodd" d="M0 5C0 2.23857 2.23857 0 5 0H20C22.7614 0 25 2.23857 25 5V20C25 22.7614 22.7614 25 20 25H5C2.23857 25 0 22.7614 0 20V5ZM5 2.5C3.61929 2.5 2.5 3.61929 2.5 5V20C2.5 21.3807 3.61929 22.5 5 22.5H12.5V13.75H11.25C10.5596 13.75 10 13.1904 10 12.5C10 11.8096 10.5596 11.25 11.25 11.25H12.5V9.375C12.5 6.95875 14.4587 5 16.875 5H17.625C18.3154 5 18.875 5.55965 18.875 6.25C18.875 6.94035 18.3154 7.5 17.625 7.5H16.875C15.8395 7.5 15 8.33946 15 9.375V11.25H17.625C18.3154 11.25 18.875 11.8096 18.875 12.5C18.875 13.1904 18.3154 13.75 17.625 13.75H15V22.5H20C21.3807 22.5 22.5 21.3807 22.5 20V5C22.5 3.61929 21.3807 2.5 20 2.5H5Z" fill="var(--black)"/>
+    </svg>
+  </a>
+</div>
+      
+      <div class="logo">
+        <a href="/">
+            <Logo/>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.footer-section');
+
+  function handleAccordion() {
+    const isMobile = window.innerWidth <= 768;
+    sections.forEach(section => {
+      const trigger = section.querySelector('.accordion-trigger');
+      if (!trigger) return; 
+      
+      const icon = trigger.querySelector('.icon');
+      
+      if (isMobile) {
+        trigger.setAttribute('aria-expanded', 'false');
+        if (icon) icon.textContent = '+';
+      } else {
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
+
+  sections.forEach(section => {
+    const trigger = section.querySelector('.accordion-trigger');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        
+        document.querySelectorAll('.accordion-trigger').forEach(btn => {
+          btn.setAttribute('aria-expanded', 'false');
+          const icon = btn.querySelector('.icon');
+          if (icon) icon.textContent = '+';
+        });
+
+        trigger.setAttribute('aria-expanded', String(!isExpanded));
+        const icon = trigger.querySelector('.icon');
+        if (icon) icon.textContent = !isExpanded ? '—' : '+';
+      }
+    });
+  });
+
+  handleAccordion();
+  window.addEventListener('resize', handleAccordion);
+</script>
+
+<style>
+.site-footer {
+    color-scheme: light dark;
+    width: 100%;
+    background-color: var(--neutral-200);
+    color: var(--black);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: block;
+    box-shadow: var(--innershadow-light), var(--dropshadow);
+  }
+
+  html.dark .site-footer {
+    background: var(--neutral-800);
+    color: var(--white);
+  }
+
+.magnetic-strip {
+    width: 100%;
+    height: 40px;
+    background-color: var(--black);
+    margin-top: 40px; 
+    margin-bottom: 1rem; 
+    display: block;
+  }
+
+  .footer-content {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+
+  .footer-brand {
+    margin-bottom: var(--gap-xxs);
+  }
+  
+  .brand-logo-text {
+    background: var(--white);
+    color: var(--black);
+    display: inline-block;
+    min-width: 220px;
+    padding: 2px 0;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-section {
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 35px;
+  }
+
+  .accordion-trigger {
+    background: none;
+    border: none;
+    color: inherit;
+    font-weight: bold;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%; 
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+
+  .accordion-trigger .icon {
+    margin-left: auto;
+    padding-right: 1rem;
+  }
+
+  .accordion-content {
+    display: none; 
+    width: 55%; 
+    padding-left: 0.5rem;
+    box-sizing: border-box;
+  }
+
+  .accordion-content p {
+    font-size: 14px;
+    padding-bottom: 0.4rem;
+  }
+
+  .accordion-trigger[aria-expanded="true"] + .accordion-content {
+    display: block;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .footer-links a, .contact-info p, .contact-info a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: normal;
+    margin: 0;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .social-icon {
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+  }
+
+  .social-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .logo {
+        width: 50px;
+        object-fit: cover;
+    }
+
+  /* HTML-baseret Light/dark skift */
+  html.dark .svg-dark {
+    fill: var(--white);
+  }
+  .svg-dark-tiktok {
+    color: var(--black);
+  }
+  html.dark .svg-dark-tiktok {
+    color: var(--white);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .icon-light { display: none; }
+    .icon-dark { display: block; }
+  }
+
+
+  /* ==========================================
+     2. DESKTOP STYLES (Fra 768px og op)
+     ========================================== */
+  @media (min-width: 768px) {
+    .site-footer {
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+      /* height: 500px; */
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    :global(.magnetic-strip) {
+      margin-bottom: 3.5rem;
+    }
+
+    .magnetic-strip{
+      height: 80px;
+      margin-top: 80px; 
+      margin-bottom: var(--gap-m);
+    }
+
+    .brand-logo-text {
+      min-width: 450px; 
+      width: 50%;
+      padding: 0;
+    }
+
+    .footer-nav {
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start; 
+      gap: 4rem;
+      max-width: 800px;
+    }
+
+    .footer-section {
+      flex-direction: column; 
+      width: auto; 
+      min-height: auto;
+    }
+
+    .accordion-trigger {
+      width: auto;
+      cursor: default;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .accordion-trigger .icon {
+      display: none; 
+    }
+
+    .accordion-content {
+      display: block !important; 
+      width: auto;
+      padding-left: 0;
+    }
+    .social-links {
+      gap: var(--gap-l);
+    }
+    .logo {
+        width: 100px;
+    }
+  }
+</style>

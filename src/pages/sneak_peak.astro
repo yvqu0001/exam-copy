@@ -1,0 +1,202 @@
+---
+//@ts-nocheck
+import '../styles/reset.css';
+import '../styles/effects.css';
+import '../styles/global.css';
+import '../styles/typography.css';
+import '../styles/variables.css';
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Countdown from '../components/Countdown.astro';
+import Pagination from '../components/Pagination.astro';
+import Blobs from '../components/Blobs.astro';
+
+
+const endpoint = "https://tkndfhivujdlyksacqma.supabase.co/rest/v1/Dankort-oeremaerket?select=*";
+const key = "sb_publishable_MNgNlIAwa1Fk9Ub05gnGTw_IhTr0m_G";
+
+const res = await fetch(endpoint, { headers: { apikey: key } });
+const allProducts = await res.json();
+
+
+const uniqueProducts = allProducts.filter(product => 
+  product.id === 1 || product.id === 6 || product.id === 9
+);
+
+const { badgeText, mediaUrl, altText, href } = Astro.props;
+---
+
+<Layout title="Merchandise">
+  <div class="bg">
+    <main>
+      <Breadcrumbs />
+      <section class="overordnet_grid main_section">
+        <div class="sneak_peak_indhold">
+          <div>
+            <h2>Snart kan du bestille merchandise</h2>
+            <h3>100% af overskuddet doneres til Den Danske Naturfond</h3>
+          </div>
+          <p>Når du køber et produkt fra vores shop, doneres 100% af overskuddet til Den Danske Naturfond. Vores produkter er kun tilgængelige i en begrænset periode og er skabt i samarbejde med vores partnere. Alle produkter er fremstillet af mindst 85% genanvendte materialer.</p>
+          <Countdown />
+        </div>
+
+        <div>
+          <div class="product_grid">
+            {uniqueProducts.map((product) => (
+              <a class="product-item" href={`/${product.id}`}><Card 
+              badgeText={product.title} 
+              mediaUrl={product.image} 
+              altText={product.title}
+              /></a>
+            ))}
+          </div>
+
+          <div class="pagination">
+            <Pagination current="0" />
+          </div>
+        </div>
+      </section>
+    </main>
+    <div class="green-blob">
+      <Blobs 
+      color="green"
+      size="large"/>
+    </div>
+    <div class="blue-blob">
+      <Blobs 
+      color="blue"
+      size="large"/>
+    </div>
+  </div>
+</Layout>
+
+
+<script>
+  const select = document.querySelector('#sort-select') as HTMLSelectElement;
+  const grid = document.querySelector('#product-grid') as HTMLElement;
+  const items = Array.from(grid.querySelectorAll('.product-item')) as HTMLElement[];
+
+  select.addEventListener('change', (e) => {
+    const target = e.target as HTMLSelectElement;
+    const value = target.value;
+    let sortedItems: HTMLElement[];
+
+    if (value === 'name-asc') {
+      // A til Å
+      sortedItems = [...items].sort((a, b) => 
+        (a.dataset.title || "").localeCompare(b.dataset.title || "")
+      );
+    } else if (value === 'name-desc') {
+      // Å til A (Vi bytter rundt på a og b)
+      sortedItems = [...items].sort((a, b) => 
+        (b.dataset.title || "").localeCompare(a.dataset.title || "")
+      );
+    } else if (value === 'price-asc') {
+      sortedItems = [...items].sort((a, b) => 
+        parseFloat(a.dataset.price || "0") - parseFloat(b.dataset.price || "0")
+      );
+    } else if (value === 'price-desc') {
+      sortedItems = [...items].sort((a, b) => 
+        parseFloat(b.dataset.price || "0") - parseFloat(a.dataset.price || "0")
+      );
+    } else {
+      sortedItems = items;
+    }
+
+    grid.innerHTML = '';
+    sortedItems.forEach(item => grid.appendChild(item));
+  });
+</script>
+
+<style>
+  main {
+    margin-bottom: var(--gap-xl);
+  }
+  .main_section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--gap-xl);
+    padding: 0 1rem;
+	}
+  .bg {
+        position: relative;
+        overflow: hidden;
+	}
+  .pagination {
+    margin-top: var(--gap-s);
+    display:flex;
+    justify-content:center;
+  }
+
+  .overordnet_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .sneak_peak_indhold {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gap-s);
+  }
+
+  .product_grid {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .product_grid > .product-item {
+    flex: 0 0 80%; /* mobil: 80% af skærmen */
+    max-width: 350px; /* desktop: pæn bredde */
+    scroll-snap-align: start;
+    text-decoration: none;
+  }
+
+  .product_grid img {
+    width: 100% ;
+    max-width: 100% ;
+    height: auto ;
+    display: block ;
+  }
+
+  .green-blob {
+    position: absolute;
+    bottom: 200px;
+    left: -250px;
+  }
+
+  .blue-blob {
+		position: absolute;
+		bottom: 200px;
+		right: -250px;
+	}
+
+
+  @media (min-width: 768px) {
+    main {
+      margin-bottom: var(--gap-xxl);
+    }
+    .product_grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      overflow: visible; /* ingen scroll på desktop */
+    }
+    .product_grid > .product-item {
+      flex: none;
+      max-width: none;
+    }
+    .pagination {
+      display: none;
+    }
+    .main_section {
+      gap: var(--gap-xxl);
+      padding: 0;
+    }
+  }
+</style>

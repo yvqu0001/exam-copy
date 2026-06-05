@@ -1,0 +1,90 @@
+:root {
+  /* COLORS */
+  /* RGB */
+  --white-rgb: 253, 250, 240;
+  --neutral-200-rgb: 221, 219, 213;
+  --neutral-300-rgb: 198, 195, 185;
+  --neutral-800-rgb: 56, 54, 46;
+  --black-rgb: 19, 19, 19;
+  --red-500-rgb: 226, 30, 39;
+  --red-700-rgb: 136, 17, 23;
+  --blue-300-rgb: 144, 217, 248;
+  --blue-600-rgb: 22, 153, 207;
+
+  /* NEUTRAL */
+  --white: #fdfaf0;
+  --neutral-200: #dddbd5;
+  --neutral-300: #c6c3b9;
+  --neutral-400: #fafb9d;
+  --neutral-500: #8c8773;
+  --neutral-600: #706c5c;
+  --neutral-700: #545145;
+  --neutral-800: #38362e;
+  --black: #131313;
+
+  /* RED */
+  --red-100: #fce8e9;
+  --red-200: #f6bbbe;
+  --red-300: #f08e93;
+  --red-400: #eb6167;
+  --red-500: #e21e27;
+  --red-600: #b5171f;
+  --red-700: #881117;
+  --red-800: #5b0b0f;
+  --red-900: #2d0608;
+
+  /* BLUE */
+  --blue-100: #e8f7fd;
+  --blue-200: #bae6d8;
+  --blue-300: #90d9f8;
+  --blue-400: #5ec3ee;
+  --blue-500: #3bb7ea;
+  --blue-600: #1699cf;
+  --blue-700: #0f668a;
+  --blue-800: #005066;
+  --blue-900: #002833;
+
+  /* GREEN */
+  --green-100: #eafaed;
+  --green-200: #c0f1c8;
+  --green-300: #a1eaac;
+  --green-400: #81d989;
+  --green-500: #3bc448;
+  --green-600: #2f9d3a;
+  --green-700: #23762b;
+  --green-800: #174f1d;
+  --green-900: #0c280e;
+
+  /* YELLOW */
+  --yellow-100: #fff6e5;
+  --yellow-200: #ffe5b2;
+  --yellow-300: #ffd998;
+  --yellow-400: #ffbd4d;
+  --yellow-500: #ffa100;
+  --yellow-600: #cc8100;
+  --yellow-700: #996100;
+  --yellow-800: #664000;
+  --yellow-900: #332000;
+
+  /* SPACING */
+  --gap-xxs: 10px;
+  --gap-xs: 15px;
+  --gap-s: 25px;
+  --gap-m: 35px;
+  --gap-l: 40px;
+  --gap-xl: 50px;
+  --gap-xxl: 100px;
+
+  /* BORDER RADIUS */
+  --radius-s: 10px;
+  --radius-m: 15px;
+  --radius-l: 20px;
+  --radius-xl: 30px;
+
+  /* EFFECTS */
+  --dropshadow: 5px 4px 4px rgba(19, 19, 19, 0.25);
+  --dropshadow-small: 2px 1px 4px rgba(19, 19, 19, 0.25);
+  --innershadow-light: inset 5px 4px 4px rgba(253, 250, 240, 0.25);
+  --innershadow-dark: inset 5px 4px 4px rgba(19, 19, 19, 0.25);
+  --innershadow-dark-small: inset 2px 1px 4px rgba(19, 19, 19, 0.25);
+}
