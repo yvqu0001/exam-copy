@@ -4,6 +4,8 @@ import '../layouts/Layout.astro'
 import Toggle from '../components/Toggle.astro'
 import Button from '../components/Buttons.astro'
 import Logo from "../assets/logo.svg"
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="header glass">
@@ -17,9 +19,9 @@ import Logo from "../assets/logo.svg"
         <!-- PC menu -->
          <div class="menu">
             <ul class="nav-links">
-                <li><a href="/find_dit_kort">Find dit kort</a></li>
-                <li><a href="/sneak_peak">Sneak peak</a></li>
-                <li><a href="/om_os">Om os</a></li>
+                <li><a href="/find_dit_kort" class:list={["nav-link", currentPath === "/find_dit_kort" && "active"]}>Find dit kort</a></li>
+                <li><a href="/sneak_peak" class:list={["nav-link", currentPath === "/sneak_peak" && "active"]}>Sneak peak</a></li>
+                <li><a href="/om_os" class:list={["nav-link", currentPath === "/om_os" && "active"]}>Om os</a></li>
             </ul>
 
             <div class="nav-actions">
@@ -110,12 +112,13 @@ mobileLinks.forEach(link => {
         gap: var(--gap-xl);
     }
 
-    .nav-links a {
+    .nav-link {
         position: relative;
         color: var(--black);
     }
 
-    .nav-links a::after {
+    /* underline base */
+    .nav-link::after {
         content: "";
         position: absolute;
         left: 0;
@@ -124,16 +127,26 @@ mobileLinks.forEach(link => {
         width: 100%;
         height: 1px;
 
-        background: var(--black );
+        background: currentColor;
 
         transform: scaleX(0);
         transform-origin: center;
-
         transition: transform 0.3s ease;
     }
 
-    .nav-links a:hover::after {
+    /* hover + active */
+    .nav-link:hover::after,
+    .nav-link.active::after {
         transform: scaleX(1);
+    }
+
+    /* dark mode */
+    html.dark .nav-link {
+        color: var(--white);
+    }
+
+    html.dark .nav-link::after {
+        background: var(--white);
     }
 
     .nav-actions {
