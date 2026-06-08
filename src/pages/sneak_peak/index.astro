@@ -1,16 +1,16 @@
 ---
 //@ts-nocheck
-import '../styles/reset.css';
-import '../styles/effects.css';
-import '../styles/global.css';
-import '../styles/typography.css';
-import '../styles/variables.css';
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import Countdown from '../components/Countdown.astro';
-import Pagination from '../components/Pagination.astro';
-import Blobs from '../components/Blobs.astro';
+import '../../styles/reset.css';
+import '../../styles/effects.css';
+import '../../styles/global.css';
+import '../../styles/typography.css';
+import '../../styles/variables.css';
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Countdown from '../../components/Countdown.astro';
+import Pagination from '../../components/Pagination.astro';
+import Blobs from '../../components/Blobs.astro';
 
 
 const endpoint = "https://tkndfhivujdlyksacqma.supabase.co/rest/v1/Dankort-oeremaerket?select=*";
@@ -23,8 +23,6 @@ const allProducts = await res.json();
 const uniqueProducts = allProducts.filter(product => 
   product.id === 1 || product.id === 6 || product.id === 9
 );
-
-const { badgeText, mediaUrl, altText, href } = Astro.props;
 ---
 
 <Layout title="Merchandise">
@@ -43,13 +41,18 @@ const { badgeText, mediaUrl, altText, href } = Astro.props;
 
         <div>
           <div class="product_grid">
-            {uniqueProducts.map((product) => (
-              <a class="product-item" href={`/${product.id}`}><Card 
-              badgeText={product.title} 
-              mediaUrl={product.image} 
-              altText={product.title}
-              /></a>
-            ))}
+            {uniqueProducts.map((product) => {
+              const slug = product.title
+                .toLowerCase()
+                .replace(/\s+/g, '-');
+              return (
+                <a class="product-item" href={`/sneak_peak/${slug}`}><Card 
+                badgeText={product.title} 
+                mediaUrl={product.image} 
+                altText={product.title}
+                /></a>
+              );
+            })}
           </div>
 
           <div class="pagination">
@@ -73,40 +76,44 @@ const { badgeText, mediaUrl, altText, href } = Astro.props;
 
 
 <script>
-  const select = document.querySelector('#sort-select') as HTMLSelectElement;
-  const grid = document.querySelector('#product-grid') as HTMLElement;
-  const items = Array.from(grid.querySelectorAll('.product-item')) as HTMLElement[];
+  const select = document.querySelector('#sort-select') as HTMLSelectElement | null;
+  const grid = document.querySelector('#product-grid') as HTMLElement | null;
+  
+  // Only run if both elements exist
+  if (select && grid) {
+    const items = Array.from(grid.querySelectorAll('.product-item')) as HTMLElement[];
 
-  select.addEventListener('change', (e) => {
-    const target = e.target as HTMLSelectElement;
-    const value = target.value;
-    let sortedItems: HTMLElement[];
+    select.addEventListener('change', (e) => {
+      const target = e.target as HTMLSelectElement;
+      const value = target.value;
+      let sortedItems: HTMLElement[];
 
-    if (value === 'name-asc') {
-      // A til Å
-      sortedItems = [...items].sort((a, b) => 
-        (a.dataset.title || "").localeCompare(b.dataset.title || "")
-      );
-    } else if (value === 'name-desc') {
-      // Å til A (Vi bytter rundt på a og b)
-      sortedItems = [...items].sort((a, b) => 
-        (b.dataset.title || "").localeCompare(a.dataset.title || "")
-      );
-    } else if (value === 'price-asc') {
-      sortedItems = [...items].sort((a, b) => 
-        parseFloat(a.dataset.price || "0") - parseFloat(b.dataset.price || "0")
-      );
-    } else if (value === 'price-desc') {
-      sortedItems = [...items].sort((a, b) => 
-        parseFloat(b.dataset.price || "0") - parseFloat(a.dataset.price || "0")
-      );
-    } else {
-      sortedItems = items;
-    }
+      if (value === 'name-asc') {
+        // A til Å
+        sortedItems = [...items].sort((a, b) => 
+          (a.dataset.title || "").localeCompare(b.dataset.title || "")
+        );
+      } else if (value === 'name-desc') {
+        // Å til A (Vi bytter rundt på a og b)
+        sortedItems = [...items].sort((a, b) => 
+          (b.dataset.title || "").localeCompare(a.dataset.title || "")
+        );
+      } else if (value === 'price-asc') {
+        sortedItems = [...items].sort((a, b) => 
+          parseFloat(a.dataset.price || "0") - parseFloat(b.dataset.price || "0")
+        );
+      } else if (value === 'price-desc') {
+        sortedItems = [...items].sort((a, b) => 
+          parseFloat(b.dataset.price || "0") - parseFloat(a.dataset.price || "0")
+        );
+      } else {
+        sortedItems = items;
+      }
 
-    grid.innerHTML = '';
-    sortedItems.forEach(item => grid.appendChild(item));
-  });
+      grid.innerHTML = '';
+      sortedItems.forEach(item => grid.appendChild(item));
+    });
+  }
 </script>
 
 <style>

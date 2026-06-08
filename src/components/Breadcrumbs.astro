@@ -1,20 +1,40 @@
 ---
 //@ts-nocheck
 
+interface Props {
+  overrideLabel?: string;
+}
+
+const { overrideLabel } = Astro.props as Props;
 const { pathname } = Astro.url;
 
-// 2. Split stien op i segmenter og fjern tomme elementer
+// Split the path into segments and remove empty elements
 const segments = pathname.split('/').filter(Boolean);
 
-// 3. Byg data-objekter for hvert trin i stien
+// Custom labels for specific segments
+const customLabels = {
+  find_dit_kort: "Find dit kort",
+  sneak_peak: "Sneak peek",
+  om_os: "Om os",
+};
+
+// Build breadcrumb objects for each step
 const breadcrumbs = segments.map((segment, index) => {
- 
   const url = '/' + segments.slice(0, index + 1).join('/');
   
-  // Gør teksten pæn (erstat bindestreger med mellemrum og giv stort forbogstav)
-  const label = segment
-    .replace(/-/g, ' ')
-    .replace(/^\w/, (c) => c.toUpperCase());
+  // Check if this is the last segment and we have an override (for product pages)
+  let label = segment;
+  
+  if (index === segments.length - 1 && overrideLabel) {
+    label = overrideLabel;
+  } else if (customLabels[segment as keyof typeof customLabels]) {
+    label = customLabels[segment as keyof typeof customLabels];
+  } else {
+    // Default: replace hyphens/underscores with spaces and capitalize
+    label = segment
+      .replace(/[_-]/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+  }
 
   return { label, url };
 });
@@ -53,11 +73,10 @@ const allBreadcrumbs = [{ label: 'Forside', url: '/' }, ...breadcrumbs];
 </nav>
 
 <style>
-
-    .breadcrumbs{
-        padding-top: 6rem;
-        margin: var(--gap-xl) 0;
-    }
+  .breadcrumbs{
+    padding-top: 6rem;
+    margin: var(--gap-xl) 0;
+  }
 
   .breadcrumbs ol {
     list-style: none;
@@ -65,7 +84,6 @@ const allBreadcrumbs = [{ label: 'Forside', url: '/' }, ...breadcrumbs];
     flex-wrap: wrap;
     padding: 0;
     gap: 0.5rem;
-    font-size: 0.9rem;
   }
 
   .breadcrumbs li {
@@ -75,22 +93,51 @@ const allBreadcrumbs = [{ label: 'Forside', url: '/' }, ...breadcrumbs];
   }
 
   .breadcrumbs a {
-    color: var(--neutral-600);
+    color: var(--neutral-800);
     text-decoration: none;
+    position: relative;
   }
 
-  .breadcrumbs a:hover {
-    text-decoration: underline;
+  /* Underline animation */
+  .breadcrumbs a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+
+    width: 100%;
+    height: 1px;
+
+    background: currentColor;
+
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+
+  .breadcrumbs a:hover::after {
+    transform: scaleX(1);
   }
 
   .breadcrumbs [aria-current="page"] {
-    color: var(--neutral-300);
-    font-weight: 600;
+    color: var(--neutral-600);
+    user-select: none;
   }
 
   .breadcrumbs .separator {
-    color: var(--neutral-600);
+    color: var(--neutral-800);
     user-select: none;
+  }
+
+
+  /* Dark mode */
+  html.dark .breadcrumbs a,
+  html.dark .breadcrumbs .separator {
+    color: var(--neutral-400);
+  }
+
+  html.dark .breadcrumbs [aria-current="page"] {
+    color: var(--neutral-300);
   }
 
   @media (max-width:768px) {
@@ -99,5 +146,4 @@ const allBreadcrumbs = [{ label: 'Forside', url: '/' }, ...breadcrumbs];
         margin: var(--gap-xl) 1rem;
     }
   }
-
 </style>

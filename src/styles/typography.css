@@ -30,7 +30,8 @@ h4 {
 }
 
 h5,
-a {
+a,
+.breadcrumbs [aria-current="page"] {
   font-family: "Raleway", "Helvetica Neue", sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
