@@ -2,7 +2,7 @@
 //@ts-nocheck
 import '../layouts/Layout.astro'
 
-const { text, variant, link} = Astro.props
+const { text, variant, link, icon: Icon} = Astro.props
 ---
 {link ? (
   <a href={link} class={`button glass ${variant}`}>
@@ -10,7 +10,8 @@ const { text, variant, link} = Astro.props
   </a>
 ) : (
   <button class={`button glass ${variant}`}>
-    <h5>{text}</h5>
+    <h5>{text}</h5>    
+    {Icon && <Icon class="btn-svg" />}
   </button>
 )}
 
@@ -22,6 +23,8 @@ const { text, variant, link} = Astro.props
     cursor: pointer;
     text-decoration: none;
     display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .red500, html.dark .red500 {
@@ -55,6 +58,10 @@ const { text, variant, link} = Astro.props
     background-color: rgba(var(--blue-600-rgb), 0.5);
     color: var(--white);  
     border: solid 0.5px var(--white);
+  }
+
+  .btn-svg{
+    width: 20px;
   }
 
   @media (max-width: 768px) {
