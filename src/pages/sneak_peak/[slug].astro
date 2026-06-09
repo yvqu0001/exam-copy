@@ -13,6 +13,8 @@ import Countdown from '../../components/Countdown.astro';
 import Card from '../../components/Card.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Blobs from '../../components/Blobs.astro';
+import Buttons from '../../components/Buttons.astro';
+import Mail from '../../assets/mail.svg';
 
 export async function getStaticPaths() {
   const endpoint =
@@ -59,21 +61,24 @@ const { product } = Astro.props;
           
           <div class="tekst_grid"> 
             <div class="size-selector">
-              <h3>Størrelse</h3>
+              <h4>Størrelse</h4>
     
               {product.size && product.size.length === 1 ? (
                 /* Hvis der kun er 1 størrelse (f.eks. One size), viser vi det bare som ren tekst */
                 <p class="one-size-text">{product.size[0]}</p>
               ) : (
                 /* Hvis der er flere størrelser (T-shirt, Sokker), viser vi dropdownen */
-                <select name="size" id="size-select" class="custom-select">
-                  <option value="" disabled selected>Vælg størrelse</option>
+                <div class="size-buttons">
                   {product.size && product.size.map((s) => (
-                    <option value={s.toLowerCase()}>{s}</option>
+                    <button type="button" class="size-btn glass">
+                      {s}
+                    </button>
                   ))}
-                </select>
+                </div>
               )}
             </div>
+
+            <Buttons variant="red500" text="Giv mig besked ved lancering" icon={Mail}/>
 
             <div class="oplysninger">
               <div>
@@ -118,6 +123,17 @@ const { product } = Astro.props;
     </div>
   </div>
 </Layout> 
+
+<script>
+  const sizeButtons = document.querySelectorAll(".size-btn");
+
+  sizeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      sizeButtons.forEach((btn) => btn.classList.remove("selected"));
+      button.classList.add("selected");
+    });
+  });
+</script>
 
 <style>
   main {
@@ -169,25 +185,36 @@ const { product } = Astro.props;
     gap: 0.5rem;
   }
 
-  .custom-select {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px 16px;
-    font-size: 16px;
-    font-family: inherit;
-    border: 1px solid  var(--neutral-500);
+  .size-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .size-btn {
+    width: 15vw;
+    height: 50px;
     border-radius: var(--radius-m);
-    background-color: var(--white);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
   }
-
-  /* Hvis dropdownen skal være mørk i darkmode */
-  html.dark .custom-select {
-    background-color: var(--black);
-    color: var(--white);
-    border-color: var(--neutral-500);
+  
+  .size-btn:hover {
+    background-color: rgba(var(--neutral-200-rgb), 0.5);
   }
 
+  .size-btn.selected {
+    background-color: rgba(var(--blue-300-rgb), 0.5);
+  }
+
+  html.dark .size-btn:hover {
+    background-color: rgba(var(--neutral-800-rgb), 0.50);
+  }
+
+  html.dark .size-btn.selected {
+    background-color: rgba(var(--blue-600-rgb), 0.5);
+  }
+
+  /* blobs */
   .green-blob {
 		position: absolute;
 		top: 500px;
@@ -213,7 +240,7 @@ const { product } = Astro.props;
 	}
 
   /* Desktop version (Skærme over 768px) */
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     main {
       padding-bottom: var(--gap-xxl);
     }
@@ -238,6 +265,11 @@ const { product } = Astro.props;
 
     h2 {
       margin-top: var(--gap-xl);
+    }
+
+    .size-btn {
+      width: 7vw;
+      height: 50px;
     }
 
     .green-blob {
