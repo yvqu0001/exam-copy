@@ -194,12 +194,13 @@ const { product } = Astro.props;
     width: 15vw;
     height: 50px;
     border-radius: var(--radius-m);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     cursor: pointer;
   }
   
   .size-btn:hover {
     background-color: rgba(var(--neutral-200-rgb), 0.5);
+    transform: scale(1.01); 
   }
 
   .size-btn.selected {
