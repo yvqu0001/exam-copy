@@ -1,0 +1,59 @@
+---
+interface Props {
+    title: string;
+    inlineSvg?: string | any;
+    bulletPoints: string[];
+}
+
+const { title, inlineSvg, bulletPoints } = Astro.props;
+const SvgComponent = typeof inlineSvg !== 'string' && inlineSvg ? inlineSvg : null;
+---
+
+<div class="info-card">
+    {typeof inlineSvg === 'string' ? (
+        <div class="svg-wrapper" set:html={inlineSvg} />
+    ) : SvgComponent ? (
+        <div class="svg-wrapper">
+            <SvgComponent />
+        </div>
+    ) : null}
+
+    <h3>{title}</h3>
+
+    <ul>
+        {bulletPoints.map((point) => (
+            <li>{point}</li>
+        ))}
+    </ul>
+</div>
+
+<style>
+    .info-card {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .svg-wrapper {
+        width: 100%;
+    }
+
+    .svg-wrapper :global(svg) {
+        width: 100%;
+        height: auto;
+    }
+
+    ul {
+        padding-left: 1.25rem;
+    }
+
+    li {
+        list-style-position: inside;
+        list-style: disc;
+        margin-bottom: 1rem;
+    }
+
+    h3{
+        text-align: center;
+    }
+</style>

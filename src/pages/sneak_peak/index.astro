@@ -1,12 +1,8 @@
 ---
 //@ts-nocheck
-import '../../styles/reset.css';
-import '../../styles/effects.css';
-import '../../styles/global.css';
-import '../../styles/typography.css';
-import '../../styles/variables.css';
 import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
+import CardKarrusel from '../../components/CardKarrusel.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Countdown from '../../components/Countdown.astro';
 import Pagination from '../../components/Pagination.astro';
@@ -21,57 +17,61 @@ const allProducts = await res.json();
 
 
 const uniqueProducts = allProducts.filter(product => 
-  product.id === 1 || product.id === 6 || product.id === 9
+    product.id === 1 || product.id === 6 || product.id === 9
 );
+
+// 1 = T-shirt
+// 6 = Socks
+// 9 = Totebag
+const overlayTexts = {
+    1: "Få dine sommer T-shirt tanlines i Dankort Øremærkets limited edition T-shirt. Kommer snart!",
+    6: "Nyd en gåtur mellem træerne du har doneret til, i dine limitid edition Dankort Øremærke sokker. Kommer snart!",
+    9: "Swipe dit Dankort, shop løs og fyld op i din limited edition Dankort Øremærket totebag. Kommer snart!"
+};
+
+const carouselItems = uniqueProducts.map(product => ({
+    href: `/sneak_peak/${product.title
+        .toLowerCase()
+        .replace(/\s+/g, '-')}`,
+    badgeText: product.title,
+    mediaUrl: product.image,
+    altText: product.title,
+    overlayText: overlayTexts[product.id],
+    clickable: true
+}));
 ---
 
 <Layout title="Merchandise">
-  <div class="bg">
-    <main>
-      <Breadcrumbs />
-      <section class="overordnet_grid main_section">
-        <div class="sneak_peak_indhold">
-          <div>
-            <h2>Snart kan du bestille merchandise</h2>
-            <h3>100% af overskuddet doneres til Den Danske Naturfond</h3>
-          </div>
-          <p>Når du køber et produkt fra vores shop, doneres 100% af overskuddet til Den Danske Naturfond. Vores produkter er kun tilgængelige i en begrænset periode og er skabt i samarbejde med vores partnere. Alle produkter er fremstillet af mindst 85% genanvendte materialer.</p>
-          <Countdown />
-        </div>
+    <div class="bg">
+        <main>
+            <Breadcrumbs />
+            <section class="overordnet_grid main_section">
+                <div class="sneak_peak_indhold">
+                    <div>
+                        <h2>Snart kan du bestille merchandise</h2>
+                        <h3>100% af overskuddet doneres til Den Danske Naturfond</h3>
+                    </div>
+                    <p>Når du køber et produkt fra vores shop, doneres 100% af overskuddet til Den Danske Naturfond. Vores produkter er kun tilgængelige i en begrænset periode og er skabt i samarbejde med vores partnere. Alle produkter er fremstillet af mindst 85% genanvendte materialer.</p>
+                    <Countdown />
+                </div>
 
-        <div>
-          <div class="product_grid">
-            {uniqueProducts.map((product) => {
-              const slug = product.title
-                .toLowerCase()
-                .replace(/\s+/g, '-');
-              return (
-                <a class="product-item" href={`/sneak_peak/${slug}`}><Card 
-                badgeText={product.title} 
-                mediaUrl={product.image} 
-                altText={product.title}
-                /></a>
-              );
-            })}
-          </div>
+                <div>
+                    <CardKarrusel items={carouselItems} />
+                </div>
+            </section>
+        </main>
 
-          <div class="pagination">
-            <Pagination current="0" />
-          </div>
+        <div class="green-blob">
+            <Blobs 
+                color="green"
+                size="large"/>
         </div>
-      </section>
-    </main>
-    <div class="green-blob">
-      <Blobs 
-      color="green"
-      size="large"/>
+        <div class="blue-blob">
+            <Blobs 
+            color="blue"
+            size="large"/>
+        </div>
     </div>
-    <div class="blue-blob">
-      <Blobs 
-      color="blue"
-      size="large"/>
-    </div>
-  </div>
 </Layout>
 
 
