@@ -5,28 +5,33 @@ import '../styles/global.css';
 import '../styles/reset.css';
 import '../styles/typography.css';
 import '../styles/variables.css';
-import Pagination from '../components/Pagination.astro';
 import CardKarrusel from '../components/CardKarrusel.astro';
 import Blobs from '../components/Blobs.astro';
 
 const mineManuelleKort = [
   {
+    type: "card",
     href: "https://tiktok.com",
     badgeText: "TikTok",
     mediaUrl: "/images/djmedoreremaerket.webp",
-    overlayText: ""
+    overlayText: "✨Første eksklusive sneak peek på Dankort Øremærkets merch✨ #fyp #dankort - @dankortoremarket",
+    clickable: true
   },
   {
+    type: "card",
     href: "https://instagram.com",
     badgeText: "Instagram",
     mediaUrl: "/images/pigerpaastranden.webp",
-    overlayText: ""
+    overlayText: "🍓Sommerens bedste minder skabes sammen #dankort - @sofiakarlsen",
+    clickable: true
   },
   {
+    type: "card",
     href: "https://facebook.com",
     badgeText: "Facebook",
     mediaUrl: "/images/gravidungpige.webp",
-    overlayText: ""
+    overlayText: "💃Bag om CPHFW med #dankort - @lisahavdrup",
+    clickable: true
   }
 ]
 ---
@@ -37,9 +42,6 @@ const mineManuelleKort = [
     <p>Følg med på de sociale medier og hold dig opdateret på nyheder, samarbejder, projekter og inspiration. Bliv en del af fællesskabet og se, hvordan vi sammen kan støtte gode formål, én betaling ad gangen.</p>
     <CardKarrusel items={mineManuelleKort} />
   </div>
-    <div class="pagination">
-      <Pagination current="0" />
-    </div>
 </section>
 <div class="yellow-blob">
     <Blobs 

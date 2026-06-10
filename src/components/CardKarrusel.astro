@@ -1,86 +1,303 @@
 ---
 //@ts-nocheck
 import Card from './Card.astro';
-
-import '../styles/effects.css';
-import '../styles/global.css';
-import '../styles/reset.css';
-import '../styles/typography.css';
-import '../styles/variables.css';
+import InfoCard from './InfoCard.astro';
 
 // Vi definerer strukturen for de data, karrusellen skal modtage
 interface KarruselItem {
-  id?: number | string;
-  href: string;
-  badgeText: string;
-  mediaUrl: string;
-  altText?: string;
-  overlayText?: string;
-  inlineSvg?: string;
-  externalText?: string;
+    id?: number | string;
+
+    // shared
+    type?: "info";
+
+    // normal Card.astro
+    href?: string;
+    badgeText?: string;
+    mediaUrl?: string;
+    altText?: string;
+    overlayText?: string;
+    externalText?: string;
+    isHoverCard?: boolean;
+
+    // InfoCard.astro
+    title?: string;
+    bulletPoints?: string[];
+
+    // SVGs
+    inlineSvg?: any;
 }
 
 interface Props {
-  items: KarruselItem[];
+    items: KarruselItem[];
 }
 
 const { items } = Astro.props;
 ---
 
-<div class="karrusel_container">
-  {items.slice(0, 3).map((item) => (
-    <a class="karrusel_item" href={item.href}>
-      <Card 
-        badgeText={item.badgeText} 
-        mediaUrl={item.mediaUrl} 
+<div class="wrapper">
+    <div class="karrusel_container carousel" aria-label="Card carousel">
+        {items.map((item, index) => {
+
+  const content =
+    item.type === "info" ? (
+      <InfoCard
+        title={item.title}
+        inlineSvg={item.inlineSvg}
+        bulletPoints={item.bulletPoints}
+      />
+    ) : (
+      <Card
+        badgeText={item.badgeText}
+        mediaUrl={item.mediaUrl}
         altText={item.altText || item.badgeText}
         overlayText={item.overlayText}
-        isHoverCard={true} 
+        isHoverCard={item.isHoverCard ?? true}
         inlineSvg={item.inlineSvg}
-        externalText={item.externalText}/>
+        externalText={item.externalText}
+      />
+    );
+
+  return item.clickable ? (
+    <a
+      class="karrusel_item"
+      href={item.href}
+      data-index={index}
+    >
+      {content}
     </a>
-  ))}
+  ) : (
+    <div
+      class="karrusel_item"
+      data-index={index}
+    >
+      {content}
+    </div>
+  );
+})}
+    </div>
+
+    <!-- pagination -->
+    <div class="pagination glass" aria-label="Carousel pagination">
+        {items.map((_, index) => (
+            <button class="dot glass" type="button" aria-label={`Gå til kort ${index + 1}`} data-index={index}></button>
+        ))}
+    </div>
 </div>
 
+<script>
+    const wrappers = document.querySelectorAll(".wrapper");
+
+    wrappers.forEach((wrapper) => {
+        const carousel = wrapper.querySelector(".carousel");
+        const dots = wrapper.querySelectorAll(".dot");
+        const cards = wrapper.querySelectorAll(".karrusel_item");
+
+        let currentIndex = 0;
+        let autoplayId = null;
+
+        const isMobile = () => window.innerWidth < 769;
+
+        function updateDots(index) {
+            dots.forEach((dot) => dot.classList.remove("active"));
+            dots[index]?.classList.add("active");
+        }
+
+        function goToSlide(index, smooth = true) {
+            const target = cards[index];
+            if (!target || !carousel) return;
+
+            const scrollOffset = target.offsetLeft - (carousel.clientWidth - target.clientWidth) / 2;
+            carousel.scrollTo({
+                left: scrollOffset,
+                behavior: smooth ? "smooth" : "auto"
+            });
+
+            currentIndex = index;
+            updateDots(index);
+        }
+
+        function stopAutoplay() {
+            if (autoplayId !== null) {
+                clearInterval(autoplayId);
+                autoplayId = null;
+            }
+        }
+
+        function startAutoplay() {
+            stopAutoplay();
+            if (!isMobile() || cards.length <= 1) return;
+
+            autoplayId = window.setInterval(() => {
+                currentIndex = (currentIndex + 1) % cards.length;
+                goToSlide(currentIndex);
+            }, 5000);
+        }
+
+        function getClosestIndex() {
+            if (!carousel) return currentIndex;
+            const carouselRect = carousel.getBoundingClientRect();
+            let closestIndex = currentIndex;
+            let closestDistance = Infinity;
+
+            cards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                const cardCenter = rect.left + rect.width / 2;
+                const carouselCenter = carouselRect.left + carouselRect.width / 2;
+                const distance = Math.abs(cardCenter - carouselCenter);
+
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            });
+            return closestIndex;
+        }
+
+        function handleUserInteraction() {
+            if (isMobile()) {
+                stopAutoplay();
+            }
+        }
+
+        if (carousel) {
+            updateDots(currentIndex);
+            goToSlide(currentIndex, false);
+
+            carousel.addEventListener("touchstart", handleUserInteraction, { passive: true });
+            carousel.addEventListener("pointerdown", handleUserInteraction);
+            carousel.addEventListener("scroll", () => {
+                if (!isMobile()) return;
+                const newIndex = getClosestIndex();
+                if (newIndex !== currentIndex) {
+                    currentIndex = newIndex;
+                    updateDots(newIndex);
+                }
+            }, { passive: true });
+
+            dots.forEach((dot) => {
+                dot.addEventListener("click", (event) => {
+                    const target = event.currentTarget;
+                    if (!(target instanceof HTMLElement)) return;
+                    const index = Number(target.dataset.index);
+                    if (!Number.isNaN(index)) {
+                        goToSlide(index);
+                        stopAutoplay();
+                    }
+                });
+            });
+
+            window.addEventListener("resize", () => {
+                if (isMobile()) {
+                    startAutoplay();
+                } else {
+                    stopAutoplay();
+                }
+            });
+        
+            startAutoplay();
+        }
+    });
+</script>   
+
 <style>
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
   /* Karrusel-containeren (Swipe på mobil, grid på desktop) */
   .karrusel_container {
     display: flex;
-    gap: 20px;
+    gap: 2rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     width: 100%;
+    padding-inline: 5vw;
+    scroll-padding-inline: 5vw;
+    touch-action: pan-y;
+    overscroll-behavior-x: contain;
   }
 
   /* De enkelte kort i karrusellen */
   .karrusel_item {
-    flex: 0 0 80%; /* Viser 80% af kortet på mobil, så man kan se det næste er på vej */
-    max-width: 350px; 
-    scroll-snap-align: start;
+    flex: 0 0 100%;
+    max-width: 100%;
+    min-width: 100%;
+    scroll-snap-align: center;
     text-decoration: none;
   }
 
-  /* Fjern scrollbar-visning på visse browsere (valgfrit, men pænt) */
   .karrusel_container::-webkit-scrollbar {
     height: 6px;
   }
+
   .karrusel_container::-webkit-scrollbar-thumb {
     border-radius: 4px;
   }
 
-  /* Desktop visning: Skifter automatisk til et 3-kolonne grid */
-  @media (min-width: 768px) {
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: auto;
+    background-color: rgba(221, 219, 213, 0.2);
+    padding: 0.3rem 2rem;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--dropshadow-small), var(--innershadow-dark-small);
+    margin-top: 1rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(221, 219, 213, 0.5);
+    transition: background-color 0.2s ease;
+    box-shadow: var(--dropshadow-small), var(--innershadow-dark-small);
+    border: none;
+    cursor: pointer;
+  }
+
+  .dot.active {
+    background-color: rgba(var(--blue-300-rgb), 0.5);
+  }
+
+  html.dark .pagination {
+    background: rgba(var(--neutral-500-rgb), 0.50);
+  }
+
+  html.dark .dot {
+    background: rgba(var(--neutral-500-rgb), 0.50);
+  }
+
+  html.dark .dot.active {
+    background-color: rgba(var(--blue-600-rgb), 0.5);
+  }
+
+  @media (min-width: 769px) {
     .karrusel_container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
-      overflow: visible; /* Ingen scroll på desktop */
+      overflow: visible;
+      padding-inline: 0;
+      scroll-snap-type: none;
     }
 
     .karrusel_item {
       flex: none;
       max-width: none;
+      min-width: auto;
+      scroll-snap-align: none;
+    }
+
+    .pagination {
+      display: none;
     }
   }
 </style>
