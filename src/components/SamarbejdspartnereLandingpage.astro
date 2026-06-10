@@ -1,12 +1,6 @@
 ---
 //@ts-nocheck
-import '../styles/effects.css';
-import '../styles/global.css';
-import '../styles/reset.css';
-import '../styles/typography.css';
-import '../styles/variables.css';
 import Buttons from '../components/Buttons.astro';
-import SamarbejdspartnerKarrusel from './SamarbejdspartnerKarrusel.astro';
 import Blobs from '../components/Blobs.astro'
 ---
 
@@ -95,9 +89,6 @@ import Blobs from '../components/Blobs.astro'
             variant="red500"
             link="/om_os"
         />
-    <section>
-        <SamarbejdspartnerKarrusel />
-    </section>
 </section>
 <div class="green-blob3">
 			<Blobs 
@@ -114,12 +105,14 @@ import Blobs from '../components/Blobs.astro'
     section {
         z-index: 100;
     }
+
     .overordnet_grid {
         display: flex;
         flex-direction: column;
         gap: var(--gap-s);
         align-items: center;
         overflow: hidden;
+        padding-bottom: 2rem ;
     }
 
     .text_part {
@@ -168,12 +161,14 @@ import Blobs from '../components/Blobs.astro'
 		position: absolute;
 		top: 1800px;
 		left: -350px;
+        z-index: -100;
 	}
 
 	.red-blob2 {
 		position: absolute;
 		top: 1800px;
 		right: -350px;
+        z-index: -100;
 	}
 
     @media (min-width: 768px) {

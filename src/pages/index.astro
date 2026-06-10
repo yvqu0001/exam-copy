@@ -1,19 +1,20 @@
 ---
-//@ts-nocheck
-import Kortfortalt from '../components/Kortfortalt.astro';
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import Footer from '../components/Footer.astro'
-import Countdown from '../components/Countdown.astro';
-import OeremaerketSection from '../components/OeremaerketSection.astro';
-import Values from '../components/Values.astro';
-import SocialsKarrusel from '../components/SocialsKarrusel.astro';
-import MerchCountdown from '../components/MerchCountdown.astro';
-import SamarbejdspartnerLandingpage from '../components/SamarbejdspartnereLandingpage.astro';
-import Blobs from '../components/Blobs.astro'
-import MobilKort from '../assets/mobil-rkort.svg';
-import PCKort from '../assets/roedtkort-desktop.svg';
+	//@ts-nocheck
+	import Kortfortalt from '../components/Kortfortalt.astro';
+	import Welcome from '../components/Welcome.astro';
+	import Layout from '../layouts/Layout.astro';
+	import Hero from '../components/Hero.astro';
+	import Footer from '../components/Footer.astro'
+	import Countdown from '../components/Countdown.astro';
+	import OeremaerketSection from '../components/OeremaerketSection.astro';
+	import Values from '../components/Values.astro';
+	import SocialsKarrusel from '../components/SocialsKarrusel.astro';
+	import MerchCountdown from '../components/MerchCountdown.astro';
+	import SamarbejdspartnerLandingpage from '../components/SamarbejdspartnereLandingpage.astro';
+	import SamarbejdspartnerKarrusel from '../components/SamarbejdspartnerKarrusel.astro';
+	import Blobs from '../components/Blobs.astro'
+	import MobilKort from '../assets/mobil-rkort.svg';
+	import PCKort from '../assets/roedtkort-desktop.svg';
 ---
 
 <Layout>
@@ -25,7 +26,12 @@ import PCKort from '../assets/roedtkort-desktop.svg';
 				<Kortfortalt />
 				<Values />
 				<OeremaerketSection />
-				<SamarbejdspartnerLandingpage />
+				<div class="partner">
+					<SamarbejdspartnerLandingpage />
+					<div class="full-bleed">
+						<SamarbejdspartnerKarrusel />
+					</div>
+				</div>
 				<MerchCountdown />
 				<SocialsKarrusel />
 			</article>
@@ -52,7 +58,21 @@ import PCKort from '../assets/roedtkort-desktop.svg';
 		position: relative;
 		overflow: hidden;
 	}
-	
+
+	.partner {
+		z-index: 100;
+	}
+
+	.full-bleed {
+		width: 100vw;
+		position: relative;
+		left: 50%;
+		right: 50%;
+		margin-left: -50vw;
+		margin-right: -50vw;
+		z-index: 1;
+	}
+
 	#kortFortalt-dk {
 		position: absolute;
 		top: 100px;
